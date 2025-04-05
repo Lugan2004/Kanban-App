@@ -15,11 +15,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/public/**", "/", "/home").permitAll()  // Public endpoints
+                    auth.requestMatchers("/public/**", "/", "/home", "/api", "/api/sign-up", "/api/**")
+                            .permitAll()  // Public endpoints
                             .anyRequest().authenticated();  // All other requests need authentication
                 })
                 .formLogin(form -> form
-                        .loginPage("http://localhost:3000/Login")  // Your custom login page
+                        .loginPage("/http://localhost:3000/Login")  // Use a relative path instead of absolute URL
                         .permitAll()
                 );
 
