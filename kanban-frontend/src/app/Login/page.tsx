@@ -3,6 +3,19 @@
 import React from "react";
 
 export default function Page(){
+  const redirectToSignUp = async () =>{
+    try{
+      const response = await fetch("http://localhost:8080/api/sign-up",{
+        method: "GET",
+        credentials:"include"
+      });
+      const redirectUrl = await response.text();
+      window.location.href = redirectUrl;
+    }catch( error){
+      console.error("Redirection error", error);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-2xl shadow-md w-80">
@@ -26,11 +39,19 @@ export default function Page(){
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+            className="w-full bg-blue-500 m-2 text-white p-2 rounded-lg hover:bg-blue-600 transition"
           >
             Login
           </button>
+
         </form>
+        <button
+            type="button"
+            onClick={redirectToSignUp}
+            className="w-full bg-blue-500 m-2 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+          >
+            Sign Up
+          </button>
       </div>
     </div>
   );
