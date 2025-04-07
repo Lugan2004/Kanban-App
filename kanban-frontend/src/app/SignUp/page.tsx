@@ -15,15 +15,33 @@ export default function Page() {
     }));
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit =  async  (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    // The timestamp will be added automatically when submitting
-    const dataWithTimestamp = {
-      ...formData,
-      timestamp: new Date().toISOString(),
-    };
+
+    try{
+       const response = await fetch("http://localhost:8080/api/sign-up",{
+        method: "POST",
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        credentials: "include",
+        body: JSON.stringify(formData)
+       });
+       
+       if(response.ok){
+        const data = await response.json();
+        console.log("Registration successful: ", data);
+       }else{
+        const errorData = await response.text();
+        console.error('Registration failed:', errorData);
+       }
+
+    }catch(error){
+      console.error("Error Submittin the data: ", error)
+    }
     
-    console.log("Submitted data:", dataWithTimestamp);
+
+    console.log("Submitted data:", formData);
     // Here you would typically send the data to your backend
     
     // Reset the form
