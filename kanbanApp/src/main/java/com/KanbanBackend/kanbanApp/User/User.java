@@ -15,6 +15,10 @@ public class User {
 
     private String email;
 
+    private String password;
+
+
+
     @Column(name= "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
@@ -27,10 +31,11 @@ public class User {
 
     }
 
-    public User(Long id, String username, String email, Instant createdAt) {
+    public User(Long id, String username, String email, String password, Instant createdAt) {
         this.id = id;
         this.username = username;
         this.email = email;
+        this.password = password;
         this.createdAt = createdAt;
     }
 
@@ -56,6 +61,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Instant getCreatedAt() {

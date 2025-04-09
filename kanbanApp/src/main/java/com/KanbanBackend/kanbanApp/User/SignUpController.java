@@ -36,6 +36,7 @@ public class SignUpController {
             User newUser = new User();
             newUser.setUsername(registrationDto.getUsername());
             newUser.setEmail(registrationDto.getEmail());
+            newUser.setPassword(registrationDto.getPassword());
 
             User savedUser = userService.createUser(newUser);
             return  ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
@@ -49,6 +50,15 @@ public class SignUpController {
 class UserRegistrationDto {
     private String username;
     private String email;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     // Getters and setters
     public String getUsername() {
