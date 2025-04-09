@@ -5,6 +5,7 @@ export default function Page() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
+    password:""
   });
 
   const handleChange = (e: { target: { name: string; value: unknown ; }; }) => {
@@ -31,13 +32,19 @@ export default function Page() {
        if(response.ok){
         const data = await response.json();
         console.log("Registration successful: ", data);
+        alert("succesful user creation") 
+        setTimeout(()=>{
+          window.location.href = "http://localhost:3000/Login";
+        }, 1000)
+        
        }else{
         const errorData = await response.text();
         console.error('Registration failed:', errorData);
+        alert(errorData)
        }
 
     }catch(error){
-      console.error("Error Submittin the data: ", error)
+      console.error("Error Submitting the data: ", error)
     }
     
 
@@ -45,7 +52,7 @@ export default function Page() {
     // Here you would typically send the data to your backend
     
     // Reset the form
-    setFormData({ username: "", email: "" });
+    setFormData({ username: "", email: "" , password: ""});
   };
 
   return (
@@ -87,6 +94,21 @@ export default function Page() {
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
                 placeholder="Enter your email"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                value={formData.password}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
+                placeholder="Create password"
               />
             </div>
           </div>
