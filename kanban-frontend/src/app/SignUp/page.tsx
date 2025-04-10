@@ -49,7 +49,7 @@ export default function Page() {
     
 
     console.log("Submitted data:", formData);
-    // Here you would typically send the data to your backend
+  
     
     // Reset the form
     setFormData({ username: "", email: "" , password: ""});
